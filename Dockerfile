@@ -1,4 +1,5 @@
-FROM node:16-bullseye
+# serverless-offline 6.8 / serverless 1.83 are 2020-era and only run reliably on Node 14
+FROM node:14-bullseye
 
 WORKDIR /app
 
