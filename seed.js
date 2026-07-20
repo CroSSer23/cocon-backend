@@ -62,6 +62,21 @@ function splitStatements(sql) {
     process.exit(0); // do not block API start
   }
 
+  // 0) clean slate — drop all known tables so the reconstructed schema applies
+  //    consistently (earlier partial runs left tables with mismatched columns that
+  //    CREATE TABLE IF NOT EXISTS would not fix, causing ambiguous-column errors).
+  try {
+    const tableNames = Object.values(require("./src/tables.js"));
+    await q(conn, "SET FOREIGN_KEY_CHECKS=0");
+    for (const t of tableNames) {
+      try { await q(conn, "DROP TABLE IF EXISTS `" + t + "`"); } catch (e) {}
+    }
+    await q(conn, "SET FOREIGN_KEY_CHECKS=1");
+    console.log(`[seed] dropped ${tableNames.length} tables for a clean apply`);
+  } catch (e) {
+    console.warn("[seed] drop step skipped:", e.message);
+  }
+
   // 1) schema
   const schemaPath = path.join(__dirname, "schema.sql");
   if (fs.existsSync(schemaPath)) {
