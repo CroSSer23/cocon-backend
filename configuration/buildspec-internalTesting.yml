@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14.x
+    commands:
+      - npm install --silent --no-progress -g npm
+      - npm install --silent --no-progress -g serverless@1.61.2
+  pre_build:
+    commands:
+      - npm install --no-progress --silent
+  build:
+    commands:
+      - npm run test
+      - mkdir -p target/internalTesting
+      - aws s3 cp s3://cocon-api-environment/internalTesting.txt .env
+      - cd src
+      - aws s3 cp s3://cocon-api-environment/cocon-app-firebase-adminsdk-i3stl-3f73a0a250.json cocon-app-firebase-adminsdk-i3stl-3f73a0a250.json
+      - cd ..
+      - serverless package --package target/internalTesting --stage internalTesting -v -r eu-west-3
+
+artifacts:
+  files:
+    - target/**/*
+    - serverless.yml
+    - configuration/deploy-internalTesting.sh

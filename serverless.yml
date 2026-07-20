@@ -1,0 +1,3708 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+custom:
+  myStage: ${opt:stage, self:provider.stage}
+  myEnvironment:
+    MESSAGE:
+      production: "This is production environment"
+      testing: "This is testing environment"
+      development: "This is developement environment"
+      internalTesting: "This is internal testing environment"
+  splitStacks:
+    nestedStackCount: 20
+    perFunction: true
+    perGroupFunction: true
+
+service: cocon-backend
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: development
+
+
+  region: us-east-2
+
+  timeout: 25
+  versionFunctions: false
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "lambda:InvokeFunction"
+      Resource: "*"
+
+plugins:
+  - serverless-plugin-split-stacks
+  - serverless-offline
+
+
+
+# resources:
+#   Resources:
+#     GatewayResponseDefault4XX:
+#       Type: "AWS::ApiGateway::GatewayResponse"
+#       Properties:
+#         ResponseParameters:
+#           gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+#           gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+#         ResponseType: DEFAULT_4XX
+#         RestApiId:
+#           Ref: "ApiGatewayRestApi"
+
+functions:
+  # authorize:
+  #   handler: src/functions/authorize.verifyToken
+
+  # authorizeAnonymous:
+  #   handler: src/functions/authorize.verifyAnonymous
+
+  login:
+    handler: src/functions/user.login
+    events:
+      - http:
+          path: login
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  signUp:
+    handler: src/functions/user.signUp
+    events:
+      - http:
+          path: signUp
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateProfile:
+    handler: src/functions/user.updateProfile
+    events:
+      - http:
+          path: updateProfile
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getBooking:
+    handler: src/functions/bookings.getBooking
+    events:
+      - http:
+          path: getBooking
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+          # authorizer: authorize
+
+  getBookingDetail:
+    handler: src/functions/bookings.getBookingDetail
+    events:
+      - http:
+          path: getBookingDetail
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateBooking:
+    handler: src/functions/bookings.updateBooking
+    events:
+      - http:
+          path: updateBooking
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+          # authorizer: authorize
+
+  saveRating:
+    handler: src/functions/bookings.saveRating
+    events:
+      - http:
+          path: saveRating
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+          # authorizer: authorize
+
+  metadata:
+    handler: src/functions/metadata.handler
+    events:
+      - http:
+          path: metadata
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+          # authorizer: authorizeAnonymous
+
+  getCategory:
+    handler: src/functions/category.getCategory
+    events:
+      - http:
+          path: getCategory
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+          # authorizer: authorizeAnonymous
+
+  getCategoryDetail:
+    handler: src/functions/category.getCategoryDetail
+    events:
+      - http:
+          path: getCategoryDetail
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+          # authorizer: authorizeAnonymous
+
+  getPromoCode:
+    handler: src/functions/promoCode.getPromoCode
+    events:
+      - http:
+          path: getPromoCode
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+          # authorizer: authorize
+
+  getTOS:
+    handler: src/functions/getTOS.handler
+    events:
+      - http:
+          path: getTOS
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+          # authorize: authorizeAnonymous
+
+  getFAQ:
+    handler: src/functions/faq.getFAQ
+    events:
+      - http:
+          path: getFAQ
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+          # authorize: authorizeAnonymous
+
+  getTimeSlot:
+    handler: src/functions/timeSlotNew.getTimeSlot
+    events:
+      - http:
+          path: getTimeSlot
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getNewToken:
+    handler: src/functions/user.getNewToken
+    events:
+      - http:
+          path: getNewToken
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getAnonymousToken:
+    handler: src/functions/user.getAnonymousToken
+    events:
+      - http:
+          path: getAnonymousToken
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  newCategory:
+    handler: src/functions/category.newCategory
+    events:
+      - http:
+          path: newCategory
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  newProduct:
+    handler: src/functions/product.newProduct
+    events:
+      - http:
+          path: newProduct
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getProduct:
+    handler: src/functions/product.getProduct
+    events:
+      - http:
+          path: getProduct
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  newAddOn:
+    handler: src/functions/addOn.newAddOn
+    events:
+      - http:
+          path: newAddOn
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getStaff:
+    handler: src/functions/staff.getStaff
+    events:
+      - http:
+          path: getStaff
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  newStaff:
+    handler: src/functions/staff.newStaff
+    events:
+      - http:
+          path: newStaff
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getUser:
+    handler: src/functions/user.getUser
+    events:
+      - http:
+          path: getUser
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getRating:
+    handler: src/functions/bookings.getRating
+    events:
+      - http:
+          path: getRating
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getMessage:
+    handler: src/functions/message.getMessage
+    events:
+      - http:
+          path: getMessage
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  newMessage:
+    handler: src/functions/message.newMessage
+    events:
+      - http:
+          path: newMessage
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  newPromoCode:
+    handler: src/functions/promoCode.newPromoCode
+    events:
+      - http:
+          path: newPromoCode
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  adminLogin:
+    handler: src/functions/user.adminLogin
+    events:
+      - http:
+          path: adminLogin
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateCategory:
+    handler: src/functions/category.updateCategory
+    events:
+      - http:
+          path: updateCategory
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateProduct:
+    handler: src/functions/product.updateProduct
+    events:
+      - http:
+          path: updateProduct
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateAddOn:
+    handler: src/functions/addOn.updateAddOn
+    events:
+      - http:
+          path: updateAddOn
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateStaff:
+    handler: src/functions/staff.updateStaff
+    events:
+      - http:
+          path: updateStaff
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getCategoryProduct:
+    handler: src/functions/category.getCategoryProduct
+    events:
+      - http:
+          path: getCategoryProduct
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  # saveBookingNew:
+  #   handler: src/functions/bookings.saveBookingNew
+  #   events:
+  #     - http:
+  #         path: saveBookingNew
+  #         method: POST
+  #         cors:
+  #           origin: "*"
+  #           headers:
+  #             - Content-Type
+  #             - X-Amz-Date
+  #             - Authorization
+  #             - X-Api-Key
+  #             - X-Amz-Security-Token
+  #             - X-Amz-User-Agent
+  #             - Access-Control-Allow-Origin
+  #             - access-control-allow-origin
+  #             - device-id
+  #             - device-timestamp
+  #             - api-version
+  #             - platform
+  #             - api-client
+  #             - x-encrypted
+  #           allowCredentials: true
+
+  stripeWebhook:
+    handler: src/functions/bookings.stripeWebhook
+    events:
+      - http:
+          path: stripeWebhook
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+            allowCredentials: true
+  stripeInvoiceWebhook:
+    handler: src/functions/bookings.stripeInvoiceWebhook
+    events:
+      - http:
+          path: stripeInvoiceWebhook
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+            allowCredentials: true
+
+  getPaymentMethod:
+    handler: src/functions/user.getPaymentMethod
+    events:
+      - http:
+          path: getPaymentMethod
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  uploadImage:
+    handler: src/functions/user.uploadImage
+    events:
+      - http:
+          path: uploadImage
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updatePromoCode:
+    handler: src/functions/promoCode.updatePromoCode
+    events:
+      - http:
+          path: updatePromoCode
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateMessage:
+    handler: src/functions/message.updateMessage
+    events:
+      - http:
+          path: updateMessage
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  deleteProduct:
+    handler: src/functions/product.deleteProduct
+    events:
+      - http:
+          path: deleteProduct
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  deleteAddOn:
+    handler: src/functions/addOn.deleteAddOn
+    events:
+      - http:
+          path: deleteAddOn
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  checkPromoCode:
+    handler: src/functions/promoCode.checkPromoCode
+    events:
+      - http:
+          path: checkPromoCode
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  saveTip:
+    handler: src/functions/bookings.saveTip
+    events:
+      - http:
+          path: saveTip
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  deletePromoCode:
+    handler: src/functions/promoCode.deletePromoCode
+    events:
+      - http:
+          path: deletePromoCode
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  deleteStaff:
+    handler: src/functions/staff.deleteStaff
+    events:
+      - http:
+          path: deleteStaff
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  deleteMessage:
+    handler: src/functions/message.deleteMessage
+    events:
+      - http:
+          path: deleteMessage
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  checkAddOnStaff:
+    handler: src/functions/bookings.checkAddOnStaff
+    events:
+      - http:
+          path: checkAddOnStaff
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  forceUpdate:
+    handler: src/functions/metadata.forceUpdate
+    events:
+      - http:
+          path: forceUpdate
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateUserExtras:
+    handler: src/functions/user.updateUserExtras
+    events:
+      - http:
+          path: updateUserExtras
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  confirmBooking:
+    handler: src/functions/bookings.confirmBooking
+    events:
+      - http:
+          path: confirmBooking
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  captureAddOnPayment:
+    handler: src/functions/bookings.captureAddOnPayment
+    events:
+      - http:
+          path: captureAddOnPayment
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  saveBookingCMS:
+    handler: src/functions/bookings.saveBookingCMS
+    events:
+      - http:
+          path: saveBookingCMS
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateBookingCMS:
+    handler: src/functions/bookings.updateBookingCMS
+    events:
+      - http:
+          path: updateBookingCMS
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  checkStaffAvailability:
+    handler: src/functions/staff.checkStaffAvailability
+    events:
+      - http:
+          path: checkStaffAvailability
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  newFAQ:
+    handler: src/functions/faq.newFAQ
+    events:
+      - http:
+          path: newFAQ
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateFAQ:
+    handler: src/functions/faq.updateFAQ
+    events:
+      - http:
+          path: updateFAQ
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  deleteFAQ:
+    handler: src/functions/faq.deleteFAQ
+    events:
+      - http:
+          path: deleteFAQ
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getStaffBooking:
+    handler: src/functions/staff.getStaffBooking
+    events:
+      - http:
+          path: getStaffBooking
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateBookingStatus:
+    handler: src/functions/staff.updateBookingStatus
+    events:
+      - http:
+          path: updateBookingStatus
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  sendRegistrationCode:
+    handler: src/functions/staff.sendRegistrationCode
+    events:
+      - http:
+          path: sendRegistrationCode
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  checkRegistrationCode:
+    handler: src/functions/staff.checkRegistrationCode
+    events:
+      - http:
+          path: checkRegistrationCode
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  staffLogin:
+    handler: src/functions/staff.staffLogin
+    events:
+      - http:
+          path: staffLogin
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getStaffDetail:
+    handler: src/functions/staff.getStaffDetail
+    events:
+      - http:
+          path: getStaffDetail
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  requestVacation:
+    handler: src/functions/staff.requestVacation
+    events:
+      - http:
+          path: requestVacation
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getVacation:
+    handler: src/functions/staff.getVacation
+    events:
+      - http:
+          path: getVacation
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  retreatVacation:
+    handler: src/functions/staff.retreatVacation
+    events:
+      - http:
+          path: retreatVacation
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  forceUpdateTherapist:
+    handler: src/functions/metadata.forceUpdateTherapist
+    events:
+      - http:
+          path: forceUpdateTherapist
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  sendSOSMessage:
+    handler: src/functions/staff.sendSOSMessage
+    events:
+      - http:
+          path: sendSOSMessage
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getTwilioAccessToken:
+    handler: src/functions/staff.getTwilioAccessToken
+    events:
+      - http:
+          path: getTwilioAccessToken
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  cancelBooking:
+    handler: src/functions/bookings.cancelBooking
+    events:
+      - http:
+          path: cancelBooking
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getLocationRequest:
+    handler: src/functions/metadata.getLocationRequest
+    events:
+      - http:
+          path: getLocationRequest
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getAddress:
+    handler: src/functions/metadata.getAddress
+    events:
+      - http:
+          path: getAddress
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  checkUserEmail:
+    handler: src/functions/user.checkUserEmail
+    events:
+      - http:
+          path: checkUserEmail
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  twilioCall:
+    handler: src/functions/staff.twilioCall
+    events:
+      - http:
+          path: twilioCall
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateStaffSchedule:
+    handler: src/functions/staff.updateStaffSchedule
+    events:
+      - http:
+          path: updateStaffSchedule
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getStaffSchedule:
+    handler: src/functions/staff.getStaffSchedule
+    events:
+      - http:
+          path: getStaffSchedule
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  reorderCatalog:
+    handler: src/functions/category.reorderCatalog
+    events:
+      - http:
+          path: reorderCatalog
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  sendChatPush:
+    handler: src/functions/user.sendChatPush
+    events:
+      - http:
+          path: sendChatPush
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getBookingAnalytics:
+    handler: src/functions/analytics.getBookingAnalytics
+    events:
+      - http:
+          path: getBookingAnalytics
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getUserAnalytics:
+    handler: src/functions/analytics.getUserAnalytics
+    events:
+      - http:
+          path: getUserAnalytics
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getProductAnalytics:
+    handler: src/functions/analytics.getProductAnalytics
+    events:
+      - http:
+          path: getProductAnalytics
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  # exportBooking:
+  #   handler: src/functions/reports.exportBooking
+  #   events:
+  #     - http:
+  #         path: exportBooking
+  #         method: POST
+  #         cors:
+  #           origin: "*"
+  #           headers:
+  #             - Content-Type
+  #             - X-Amz-Date
+  #             - Authorization
+  #             - X-Api-Key
+  #             - X-Amz-Security-Token
+  #             - X-Amz-User-Agent
+  #             - Access-Control-Allow-Origin
+  #             - access-control-allow-origin
+  #             - device-id
+  #             - device-timestamp
+  #             - api-version
+  #             - platform
+  #             - api-client
+  #             - x-encrypted
+  #           allowCredentials: true
+
+  # exportUser:
+  #   handler: src/functions/reports.exportUser
+  #   events:
+  #     - http:
+  #         path: exportUser
+  #         method: POST
+  #         cors:
+  #           origin: "*"
+  #           headers:
+  #             - Content-Type
+  #             - X-Amz-Date
+  #             - Authorization
+  #             - X-Api-Key
+  #             - X-Amz-Security-Token
+  #             - X-Amz-User-Agent
+  #             - Access-Control-Allow-Origin
+  #             - access-control-allow-origin
+  #             - device-id
+  #             - device-timestamp
+  #             - api-version
+  #             - platform
+  #             - api-client
+  #             - x-encrypted
+  #           allowCredentials: true
+
+  bookingBadgeCount:
+    handler: src/functions/bookings.bookingBadgeCount
+    events:
+      - http:
+          path: bookingBadgeCount
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getUserDetail:
+    handler: src/functions/user.getUserDetail
+    events:
+      - http:
+          path: getUserDetail
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateBookingExtra:
+    handler: src/functions/bookings.updateBookingExtra
+    events:
+      - http:
+          path: updateBookingExtra
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  notifyPreBooking:
+    handler: src/functions/bookings.notifyPreBooking
+    events:
+      - http:
+          path: notifyPreBooking
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  logout:
+    handler: src/functions/user.logout
+    events:
+      - http:
+          path: logout
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  staffLogout:
+    handler: src/functions/staff.staffLogout
+    events:
+      - http:
+          path: staffLogout
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getTip:
+    handler: src/functions/bookings.getTip
+    events:
+      - http:
+          path: getTip
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateUser:
+    handler: src/functions/user.updateUser
+    events:
+      - http:
+          path: updateUser
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getBookingOffers:
+    handler: src/functions/staff.getBookingOffers
+    events:
+      - http:
+          path: getBookingOffers
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateStRequestStatus:
+    handler: src/functions/staff.updateStRequestStatus
+    events:
+      - http:
+          path: updateStRequestStatus
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateGlobalDispatchSettings:
+    handler: src/functions/bookings.updateGlobalDispatchSettings
+    events:
+      - http:
+          path: updateGlobalDispatchSettings
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateBookingDispatchSettings:
+    handler: src/functions/bookings.updateBookingDispatchSettings
+    events:
+      - http:
+          path: updateBookingDispatchSettings
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  notifyAdminUnfillBooking:
+    handler: src/functions/bookings.notifyAdminUnfillBooking
+    events:
+      - http:
+          path: notifyAdminUnfillBooking
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  bookingLapseNInconclusive:
+    handler: src/functions/bookings.bookingLapseNInconclusive
+    events:
+      - http:
+          path: bookingLapseNInconclusive
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  dispatchNotifier:
+    handler: src/functions/bookings.dispatchNotifier
+
+  bookingDispatcher:
+    handler: src/functions/bookings.bookingDispatcher
+  
+  bookingConfNotifier:
+    handler: src/functions/bookings.bookingConfNotifier
+  bookingStaffNotification:
+    handler: src/functions/bookings.bookingStaffNotification
+  sendUserBookingPush:
+    handler: src/functions/bookings.bookingStaffNotification
+
+  getStatus:
+    handler: src/functions/metadata.getStatus
+    events:
+      - http:
+          path: getStatus
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+            
+  updateSchema:
+    handler: src/helpers/schema.updateSchema
+    events:
+      - http:
+          path: updateSchema
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getEncrypt:
+    handler: src/functions/metadata.getEncrypt
+    events:
+      - http:
+          path: getEncrypt
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  getDecrypt:
+    handler: src/functions/metadata.getDecrypt
+    events:
+      - http:
+          path: getDecrypt
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  deleteUser:
+    handler: src/functions/user.deleteUser
+    events:
+      - http:
+          path: deleteUser
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  saveAccountDeleteFeedback:
+    handler: src/functions/user.saveAccountDeleteFeedback
+    events:
+      - http:
+          path: saveAccountDeleteFeedback
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  getCalendarStaff:
+    handler: src/functions/staff.getCalendarStaff
+    events:
+      - http:
+          path: getCalendarStaff
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  updateStaffSequence:
+    handler: src/functions/staff.updateStaffSequence
+    events:
+      - http:
+          path: updateStaffSequence
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  getStaffFilterList:
+    handler: src/functions/staff.getStaffFilterList
+    events:
+      - http:
+          path: getStaffFilterList
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  getTreatment:
+    handler: src/functions/staff.getTreatment
+    events:
+      - http:
+          path: getTreatment
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  getCMSTimeSlots:
+    handler: src/functions/timeSlotNew.getCMSTimeSlots
+    events:
+      - http:
+          path: getCMSTimeSlots
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  checkAvailability:
+    handler: src/functions/timeSlotNew.checkAvailability
+    events:
+      - http:
+          path: checkAvailability
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  updateBookingDraft:
+    handler: src/functions/bookings.updateBookingDraft
+    events:
+      - http:
+          path: updateBookingDraft
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  getUserAnalyticDetail:
+    handler: src/functions/user.getUserAnalyticDetail
+    events:
+      - http:
+          path: getUserAnalyticDetail
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  checkPromoCodeCMS:
+    handler: src/functions/promoCode.checkPromoCodeCMS
+    events:
+      - http:
+          path: checkPromoCodeCMS
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  createInvoice:
+    handler: src/functions/bookings.createInvoice
+    events:
+      - http:
+          path: createInvoice
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  getUnfilledBookings:
+    handler: src/functions/staff.getUnfilledBookings
+    events:
+      - http:
+          path: getUnfilledBookings
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  updateBookingProductStaffTime:
+    handler: src/functions/staff.updateBookingProductStaffTime
+    events:
+      - http:
+          path: updateBookingProductStaffTime
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  newOrganisation:
+    handler: src/functions/organisations.newOrganisation
+    events:
+      - http:
+          path: newOrganisation
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  getOrganisation:
+    handler: src/functions/organisations.getOrganisation
+    events:
+      - http:
+          path: getOrganisation
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  updateOrganisation:
+    handler: src/functions/organisations.updateOrganisation
+    events:
+      - http:
+          path: updateOrganisation
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  deleteOrganisation:
+    handler: src/functions/organisations.deleteOrganisation
+    events:
+      - http:
+          path: deleteOrganisation
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  resetPassword:
+    handler: src/functions/organisations.resetPassword
+    events:
+      - http:
+          path: resetPassword
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  updateProductOrganisation:
+    handler: src/functions/product.updateProductOrganisation
+    events:
+      - http:
+          path: updateProductOrganisation
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  updateCoconOrgForStaff:
+    handler: src/functions/staff.updateCoconOrgForStaff
+    events:
+      - http:
+          path: updateCoconOrgForStaff
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  getBookingInstructions:
+    handler: src/functions/metadata.getBookingInstructions
+    events:
+      - http:
+          path: getBookingInstructions
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  fetchOrganisationAdmin:
+    handler: src/functions/user.fetchOrganisationAdmin
+    events:
+      - http:
+          path: fetchOrganisationAdmin
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  saveLog:
+    handler: src/functions/common.saveLog
+    events:
+      - http:
+          path: saveLog
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  newAdmin:
+    handler: src/functions/user.newAdmin
+    events:
+      - http:
+          path: newAdmin
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  adminLogout:
+    handler: src/functions/user.adminLogout
+    events:
+      - http:
+          path: adminLogout
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  updateAdmin:
+    handler: src/functions/user.updateAdmin
+    events:
+      - http:
+          path: updateAdmin
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  deleteAdmin:
+    handler: src/functions/user.deleteAdmin
+    events:
+      - http:
+          path: deleteAdmin
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  saveTempBooking:
+    handler: src/functions/bookings.saveTempBooking
+    events:
+      - http:
+          path: saveTempBooking
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  confirmTempBooking:
+    handler: src/functions/bookings.confirmTempBooking
+    events:
+      - http:
+          path: confirmTempBooking
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  saveTipNew:
+    handler: src/functions/bookings.saveTipNew
+    events:
+      - http:
+          path: saveTipNew
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  captureAddOnPaymentNew:
+    handler: src/functions/bookings.captureAddOnPaymentNew
+    events:
+      - http:
+          path: captureAddOnPaymentNew
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  deleteStaffAccount:
+    handler: src/functions/staff.deleteStaffAccount
+    events:
+      - http:
+          path: deleteStaffAccount
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  saveStaffAccountDeleteFeedback:
+    handler: src/functions/staff.saveStaffAccountDeleteFeedback
+    events:
+      - http:
+          path: saveStaffAccountDeleteFeedback
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  getStaffAvailability:
+    handler: src/functions/staff.getStaffAvailability
+    events:
+      - http:
+          path: getStaffAvailability
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  updateUserNotes:
+    handler: src/functions/user.updateUserNotes
+    events:
+      - http:
+          path: updateUserNotes
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  getDistance:
+    handler: src/functions/metadata.getDistance
+    events:
+      - http:
+          path: getDistance
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  calculateBookingStaffRate:
+    handler: src/functions/bookings.calculateBookingStaffRate
+    events:
+      - http:
+          path: calculateBookingStaffRate
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  getStaffHistoricalBooking:
+    handler: src/functions/staff.getStaffHistoricalBooking
+    events:
+      - http:
+          path: getStaffHistoricalBooking
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  getStaffHistoricalBookingTotal:
+    handler: src/functions/staff.getStaffHistoricalBookingTotal
+    events:
+      - http:
+          path: getStaffHistoricalBookingTotal
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  notifyPreBookingEmail:
+    handler: src/functions/bookings.notifyPreBookingEmail
+    events:
+      - http:
+          path: notifyPreBookingEmail
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  calculateAddonStaffRate:
+    handler: src/functions/bookings.calculateAddonStaffRate
+    events:
+      - http:
+          path: calculateAddonStaffRate
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+  sendOrganisationConfEmail:
+    handler: src/functions/bookings.sendOrganisationConfEmail
+  setBookingComplete:
+    handler: src/functions/bookings.setBookingComplete
+    events:
+      - http:
+          path: setBookingComplete
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+              - access-control-allow-origin
+              - device-id
+              - device-timestamp
+              - api-version
+              - platform
+              - api-client
+              - x-encrypted
+            allowCredentials: true
+
+  # updateLastMessageDetails:
+  #   handler: src/functions/user.updateLastMessageDetails
+  #   events:
+  #     - http:
+  #         path: updateLastMessageDetails
+  #         method: POST
+  #         cors:
+  #           origin: "*"
+  #           headers:
+  #             - Content-Type
+  #             - X-Amz-Date
+  #             - Authorization
+  #             - X-Api-Key
+  #             - X-Amz-Security-Token
+  #             - X-Amz-User-Agent
+  #             - Access-Control-Allow-Origin
+  #             - access-control-allow-origin
+  #             - device-id
+  #             - device-timestamp
+  #             - api-version
+  #             - platform
+  #             - api-client
+  #             - x-encrypted
+  #           allowCredentials: true            
+  # getStripeObject:
+  #   handler: src/functions/bookings.getStripeObject
+  #   events:
+  #     - http:
+  #         path: getStripeObject
+  #         method: POST
+  #         cors:
+  #           origin: "*"
+  #           headers:
+  #             - Content-Type
+  #             - X-Amz-Date
+  #             - Authorization
+  #             - X-Api-Key
+  #             - X-Amz-Security-Token
+  #             - X-Amz-User-Agent
+  #             - Access-Control-Allow-Origin
+  #             - access-control-allow-origin
+  #             - device-id
+  #             - device-timestamp
+  #             - api-version
+  #             - platform
+  #           allowCredentials: true
