@@ -6,6 +6,15 @@ const apiClients = [
 ];
 const CryptoJS = require("crypto-js");
 
+// Reverse proxies (e.g. Traefik/Go) canonicalise header names to Title-Case
+// ("X-Encrypted"), while AWS API Gateway delivers them lower-cased. Look the
+// flag up case-insensitively so payloads decrypt in both environments.
+function isEncryptedRequest(event) {
+    const headers = (event && event.headers) || {};
+    const key = Object.keys(headers).find(h => h.toLowerCase() === 'x-encrypted');
+    return key ? headers[key] === 'true' : false;
+}
+
 module.exports = {
     REQ_DATA_ERR_MSG: "Please enter the required information.",
     InitializeFirebase: function () {
@@ -36,6 +45,10 @@ module.exports = {
     },
     checkHeaders: function (headers, userType=null) {
         console.log(headers)
+        // normalise header keys to lower-case (proxies may Title-Case them)
+        const _lower = {};
+        for (const k in (headers || {})) _lower[k.toLowerCase()] = headers[k];
+        headers = _lower;
         if (
             !headers['api-version'] ||
             !headers['device-id'] ||
@@ -78,7 +91,7 @@ module.exports = {
     },
     getPayloadData: function (event) {
         let json = null;
-        if (event.headers['x-encrypted'] === 'true') {
+        if (isEncryptedRequest(event)) {
             if (event.body) {
                 let rawData = CryptoJS.AES.decrypt(event.body, process.env.PAYLOAD_ENC_KEY);
                 if (!rawData.toString(CryptoJS.enc.Utf8)) {
@@ -98,7 +111,7 @@ module.exports = {
         return json;
     },
     setPayloadData: function (event, data) {
-        if (event.headers['x-encrypted'] === 'true') {
+        if (isEncryptedRequest(event)) {
             return CryptoJS.AES.encrypt(JSON.stringify(data), process.env.PAYLOAD_ENC_KEY).toString();
         } else {
             return JSON.stringify(data);
