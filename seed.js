@@ -95,7 +95,7 @@ function splitStatements(sql) {
   await tryQ("BusinessType", "INSERT IGNORE INTO `BusinessType` (`BusinessTypeId`,`Name`) VALUES (1,'Spa')");
   await tryQ(
     "Organisation",
-    "INSERT IGNORE INTO `Organisation` (`OrganisationId`,`Name`,`BusinessTypeId`,`Deleted`) VALUES (1,'Cocon Demo',1,0)"
+    "INSERT IGNORE INTO `Organisation` (`OrganisationId`,`Name`) VALUES (1,'Cocon Demo')"
   );
   await tryQ(
     "OrganisationLocation",
